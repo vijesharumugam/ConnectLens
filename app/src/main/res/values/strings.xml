@@ -1,0 +1,70 @@
+<resources>
+    <string name="app_name">ConnectLens</string>
+    <string name="app_description">Understand your communication patterns</string>
+
+    <!-- Onboarding -->
+    <string name="onboarding_skip">Skip</string>
+    <string name="onboarding_next">Next</string>
+    <string name="onboarding_get_started">Get Started</string>
+    <string name="onboarding_welcome_title">Welcome to ConnectLens</string>
+    <string name="onboarding_welcome_subtitle">Understand your phone communication patterns — privately, locally, and clearly.</string>
+    <string name="onboarding_how_title">How ConnectLens Works</string>
+    <string name="onboarding_privacy_title">Your Privacy Matters</string>
+    <string name="onboarding_privacy_body">ConnectLens reads your call history and contacts only on this device. Your data is never uploaded to a server, shared with third parties, or used for advertising.</string>
+    <string name="onboarding_permissions_title">Permissions You\'ll Need</string>
+    <string name="onboarding_permissions_call_log">Read Call History — to count calls and measure duration.</string>
+    <string name="onboarding_permissions_contacts">Read Contacts — to match numbers to names you know.</string>
+    <string name="onboarding_ready_title">You\'re Ready!</string>
+    <string name="onboarding_ready_subtitle">ConnectLens will now show you your communication insights.</string>
+
+    <!-- Dashboard -->
+    <string name="dashboard_title">ConnectLens</string>
+    <string name="dashboard_total_calls">Total Calls</string>
+    <string name="dashboard_talk_time">Talk Time</string>
+    <string name="dashboard_avg_duration">Avg Duration</string>
+    <string name="dashboard_contacts">Contacts</string>
+    <string name="dashboard_top_contacts">Top Contacts</string>
+    <string name="dashboard_call_activity">Call Activity</string>
+    <string name="dashboard_call_types">Call Types</string>
+    <string name="dashboard_privacy_protected">Privacy Protected</string>
+    <string name="dashboard_empty_title">No Call Records Found</string>
+    <string name="dashboard_empty_subtitle">Grant call log permission to see your communication insights.</string>
+
+    <!-- Permissions -->
+    <string name="permission_call_log_title">Call History Access</string>
+    <string name="permission_call_log_desc">Required to read call records for analytics. ConnectLens never modifies your call history.</string>
+    <string name="permission_contacts_title">Contacts Access</string>
+    <string name="permission_contacts_desc">Matches phone numbers to saved contact names. No contacts are modified or uploaded.</string>
+    <string name="permission_grant">Grant</string>
+    <string name="permission_open_settings">Open Settings</string>
+
+    <!-- Settings -->
+    <string name="settings_title">Settings</string>
+    <string name="settings_permissions">Permissions</string>
+    <string name="settings_data_management">Data Management</string>
+    <string name="settings_privacy">Privacy</string>
+    <string name="settings_about">About</string>
+    <string name="settings_clear_data">Clear Local Analytics Cache</string>
+    <string name="settings_clear_data_confirm">This removes ConnectLens\'s locally cached data. Your original call history on this phone is NOT affected.</string>
+    <string name="settings_data_cleared">Local cache cleared successfully.</string>
+    <string name="settings_reset_onboarding">Reset Onboarding</string>
+    <string name="settings_version">Version</string>
+
+    <!-- Call types -->
+    <string name="call_type_incoming">Incoming</string>
+    <string name="call_type_outgoing">Outgoing</string>
+    <string name="call_type_missed">Missed</string>
+    <string name="call_type_rejected">Rejected</string>
+    <string name="call_type_blocked">Blocked</string>
+    <string name="call_type_unknown">Unknown</string>
+
+    <!-- Common -->
+    <string name="unknown_number">Unknown number</string>
+    <string name="retry">Retry</string>
+    <string name="cancel">Cancel</string>
+    <string name="confirm">Confirm</string>
+    <string name="back">Back</string>
+    <string name="search">Search</string>
+    <string name="no_data">No data available</string>
+    <string name="loading">Loading…</string>
+</resources>

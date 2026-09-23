@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  Minimal themes.xml.
+  ConnectLens uses Jetpack Compose for all UI. This base theme only runs
+  briefly before the Compose surface takes over, so it uses a built-in
+  Android platform theme that requires no extra library dependency.
+-->
+<resources>
+    <style name="Theme.ConnectLens" parent="android:Theme.Material.Light.NoActionBar" />
+</resources>

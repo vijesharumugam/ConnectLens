@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  Launcher foreground icon — a stylised phone with a lens/magnifier overlay.
+  Designed to render clearly at 108dp on an inset safe zone of 72dp.
+-->
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="108dp"
+    android:height="108dp"
+    android:viewportWidth="108"
+    android:viewportHeight="108">
+
+    <!-- Phone body -->
+    <path
+        android:fillColor="#FFFFFF"
+        android:pathData="M42,22 L66,22 C69.3,22 72,24.7 72,28 L72,80 C72,83.3 69.3,86 66,86 L42,86 C38.7,86 36,83.3 36,80 L36,28 C36,24.7 38.7,22 42,22 Z" />
+
+    <!-- Screen area -->
+    <path
+        android:fillColor="#3949AB"
+        android:pathData="M40,30 L68,30 L68,74 L40,74 Z" />
+
+    <!-- Bar chart lines on screen -->
+    <path
+        android:fillColor="#FFFFFF"
+        android:pathData="M45,62 L45,55 L50,55 L50,62 Z" />
+    <path
+        android:fillColor="#FFFFFF"
+        android:pathData="M52,62 L52,48 L57,48 L57,62 Z" />
+    <path
+        android:fillColor="#FFFFFF"
+        android:pathData="M59,62 L59,52 L64,52 L64,62 Z" />
+
+    <!-- Home button indicator -->
+    <path
+        android:fillColor="#BBBBCC"
+        android:pathData="M51,78 C51,76.3 52.3,75 54,75 C55.7,75 57,76.3 57,78 C57,79.7 55.7,81 54,81 C52.3,81 51,79.7 51,78 Z" />
+
+    <!-- Magnifying glass circle -->
+    <path
+        android:fillColor="#00000000"
+        android:strokeColor="#FFD600"
+        android:strokeWidth="3"
+        android:pathData="M62,36 C62,40.4 58.4,44 54,44 C49.6,44 46,40.4 46,36 C46,31.6 49.6,28 54,28 C58.4,28 62,31.6 62,36 Z" />
+
+    <!-- Magnifying glass handle -->
+    <path
+        android:fillColor="#00000000"
+        android:strokeColor="#FFD600"
+        android:strokeWidth="3"
+        android:strokeLineCap="round"
+        android:pathData="M59.5,41.5 L64,46" />
+
+</vector>

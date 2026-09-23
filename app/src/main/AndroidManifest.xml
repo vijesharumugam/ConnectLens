@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <!-- ================================================================
+         ConnectLens – Permission Declarations
+         All permissions are request-only; none are auto-granted.
+         READ_CALL_LOG is sensitive; see README for Play Store guidance.
+         ================================================================ -->
+
+    <!-- Read permitted call-log records for analytics -->
+    <uses-permission android:name="android.permission.READ_CALL_LOG" />
+
+    <!-- Read contact names to match call records to people -->
+    <uses-permission android:name="android.permission.READ_CONTACTS" />
+
+    <!-- Required by DataStore / Room for internal file operations (implicit) -->
+    <!-- No network, no SMS, no microphone, no camera permissions -->
+
+    <application
+        android:name=".ConnectLensApplication"
+        android:allowBackup="true"
+        android:dataExtractionRules="@xml/data_extraction_rules"
+        android:fullBackupContent="@xml/backup_rules"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:roundIcon="@mipmap/ic_launcher_round"
+        android:supportsRtl="true"
+        android:theme="@style/Theme.ConnectLens">
+
+        <activity
+            android:name=".MainActivity"
+            android:exported="true"
+            android:label="@string/app_name"
+            android:windowSoftInputMode="adjustResize"
+            android:theme="@style/Theme.ConnectLens">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+
+    </application>
+
+</manifest>
