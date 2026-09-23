@@ -1,12 +1,28 @@
 package com.connectlens.app.core.common
 
+import android.content.Context
+import android.content.Intent
+import android.net.Uri
+
 /**
- * Utility functions for phone number display and matching.
- *
- * Privacy note: Phone numbers are never logged in full.
- * [maskNumber] is used wherever numbers are displayed to the user.
+ * Utility functions for phone number display, matching, and dialing.
  */
 object PhoneNumberUtils {
+
+    /**
+     * Launches the device's default phone app prefilled with [phoneNumber].
+     */
+    fun launchDialIntent(context: Context, phoneNumber: String) {
+        if (phoneNumber.isBlank()) return
+        try {
+            val intent = Intent(Intent.ACTION_DIAL).apply {
+                data = Uri.parse("tel:${Uri.encode(phoneNumber)}")
+            }
+            context.startActivity(intent)
+        } catch (_: Exception) {
+            // Handle cases where dialer app is unavailable
+        }
+    }
 
     /**
      * Formats a phone number for UI display.

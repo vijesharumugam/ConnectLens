@@ -5,11 +5,13 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
+import androidx.compose.material.icons.filled.Call
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
@@ -25,8 +27,13 @@ fun ContactDetailScreen(
     onNavigateBack: () -> Unit,
     viewModel: ContactDetailViewModel = hiltViewModel()
 ) {
+    val context = LocalContext.current
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
     val selectedTimeRange by viewModel.selectedTimeRange.collectAsStateWithLifecycle()
+
+    val currentPhoneNumber = (uiState as? ContactDetailUiState.Success)?.stats?.phoneNumber
+        ?: phoneNumber
+        ?: ((uiState as? ContactDetailUiState.Success)?.stats?.displayName?.takeIf { it.firstOrNull()?.isDigit() == true || it.startsWith("+") })
 
     Scaffold(
         topBar = {
@@ -47,6 +54,13 @@ fun ContactDetailScreen(
                 navigationIcon = {
                     IconButton(onClick = onNavigateBack) {
                         Icon(Icons.Default.ArrowBack, contentDescription = "Back")
+                    }
+                },
+                actions = {
+                    if (!currentPhoneNumber.isNullOrBlank()) {
+                        IconButton(onClick = { PhoneNumberUtils.launchDialIntent(context, currentPhoneNumber) }) {
+                            Icon(Icons.Default.Call, contentDescription = "Call Contact")
+                        }
                     }
                 }
             )
@@ -83,6 +97,16 @@ fun ContactDetailScreen(
                                         style = MaterialTheme.typography.bodyLarge,
                                         color = MaterialTheme.colorScheme.onSurfaceVariant
                                     )
+                                }
+                                if (!currentPhoneNumber.isNullOrBlank()) {
+                                    Spacer(modifier = Modifier.height(12.dp))
+                                    Button(
+                                        onClick = { PhoneNumberUtils.launchDialIntent(context, currentPhoneNumber) }
+                                    ) {
+                                        Icon(Icons.Default.Call, contentDescription = null, modifier = Modifier.size(18.dp))
+                                        Spacer(modifier = Modifier.width(8.dp))
+                                        Text("Call Contact")
+                                    }
                                 }
                             }
                         }

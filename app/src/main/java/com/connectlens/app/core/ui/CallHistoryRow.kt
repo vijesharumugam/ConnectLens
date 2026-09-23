@@ -10,6 +10,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.semantics.contentDescription
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.text.font.FontWeight
@@ -34,6 +35,7 @@ fun CallHistoryRow(
     modifier: Modifier = Modifier,
     onClick: () -> Unit = {}
 ) {
+    val context = LocalContext.current
     val targetRecord = record ?: callRecord ?: return
     val (icon, iconTint, typeLabel) = callTypeVisuals(targetRecord.type)
     val hasContactName = !targetRecord.contactName.isNullOrBlank()
@@ -112,6 +114,20 @@ fun CallHistoryRow(
                         text  = typeLabel,
                         style = MaterialTheme.typography.labelSmall,
                         color = iconTint.copy(alpha = 0.8f)
+                    )
+                }
+            }
+
+            if (!rawNumber.isNullOrBlank()) {
+                IconButton(
+                    onClick = { PhoneNumberUtils.launchDialIntent(context, rawNumber) },
+                    modifier = Modifier.size(36.dp)
+                ) {
+                    Icon(
+                        imageVector = Icons.Default.Call,
+                        contentDescription = "Call $displayName",
+                        tint = MaterialTheme.colorScheme.primary,
+                        modifier = Modifier.size(20.dp)
                     )
                 }
             }

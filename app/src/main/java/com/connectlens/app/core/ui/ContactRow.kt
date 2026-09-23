@@ -3,16 +3,19 @@ package com.connectlens.app.core.ui
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Call
 import androidx.compose.material.icons.filled.ChevronRight
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.semantics.contentDescription
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
+import com.connectlens.app.core.common.PhoneNumberUtils
 import com.connectlens.app.core.common.TimeUtils
 import com.connectlens.app.domain.model.ContactStats
 
@@ -26,6 +29,8 @@ fun ContactRow(
     modifier: Modifier = Modifier,
     onClick: () -> Unit = {}
 ) {
+    val context = LocalContext.current
+    val rawNumber = stats.phoneNumber ?: stats.displayName.takeIf { it.firstOrNull()?.isDigit() == true || it.startsWith("+") }
     val hasPhoneNumber = !stats.phoneNumber.isNullOrBlank() && stats.phoneNumber != stats.displayName
     val description = "Contact: ${stats.displayName}" +
             (if (hasPhoneNumber) ", Number: ${stats.phoneNumber}" else "") +
@@ -88,6 +93,20 @@ fun ContactRow(
                     style = MaterialTheme.typography.bodySmall,
                     color = MaterialTheme.colorScheme.onSurfaceVariant
                 )
+            }
+
+            if (!rawNumber.isNullOrBlank()) {
+                IconButton(
+                    onClick = { PhoneNumberUtils.launchDialIntent(context, rawNumber) },
+                    modifier = Modifier.size(36.dp)
+                ) {
+                    Icon(
+                        imageVector = Icons.Default.Call,
+                        contentDescription = "Call ${stats.displayName}",
+                        tint = MaterialTheme.colorScheme.primary,
+                        modifier = Modifier.size(20.dp)
+                    )
+                }
             }
 
             Icon(
