@@ -1,5 +1,9 @@
 # ConnectLens
 
+[![Download APK](https://img.shields.io/badge/Download-ConnectLens_v1.0.0.apk-2EA44F?style=for-the-badge&logo=android&logoColor=white)](https://github.com/vijesharumugam/ConnectLens/releases/download/v1.0.0/ConnectLens-v1.0.0.apk)
+
+**[📥 Download Latest APK v1.0.0](https://github.com/vijesharumugam/ConnectLens/releases/download/v1.0.0/ConnectLens-v1.0.0.apk)**
+
 ConnectLens is an Android application for call log analytics and communication insights. Built with Jetpack Compose, Material 3, and Clean Architecture, it processes call history entirely on-device to deliver interactive visual analytics without cloud dependencies or external network requests.
 
 ---
