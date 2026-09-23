@@ -36,12 +36,19 @@ fun CallHistoryRow(
 ) {
     val targetRecord = record ?: callRecord ?: return
     val (icon, iconTint, typeLabel) = callTypeVisuals(targetRecord.type)
-    val displayName = targetRecord.contactName
-        ?: PhoneNumberUtils.maskNumber(targetRecord.number)
-            .takeIf { targetRecord.number.isNotBlank() }
-        ?: "Unknown number"
+    val hasContactName = !targetRecord.contactName.isNullOrBlank()
+    val rawNumber = targetRecord.number.ifBlank { null }
+    val displayName = if (hasContactName) targetRecord.contactName!! else (rawNumber ?: "Unknown number")
 
-    val description = "$typeLabel call ${if (targetRecord.contactName != null) "with ${targetRecord.contactName}" else ""}, " +
+    val subtitleText = buildString {
+        if (hasContactName && rawNumber != null) {
+            append(rawNumber)
+            append(" • ")
+        }
+        append(TimeUtils.formatRelativeDate(targetRecord.timestamp))
+    }
+
+    val description = "$typeLabel call ${if (hasContactName) "with ${targetRecord.contactName} (${rawNumber ?: ""})" else "with ${rawNumber ?: "Unknown"}"}, " +
             "duration ${TimeUtils.formatDuration(targetRecord.durationSeconds)}"
 
     Surface(
@@ -74,7 +81,7 @@ fun CallHistoryRow(
                 }
             }
 
-            // Name and timestamp
+            // Name, phone number, and timestamp
             Column(modifier = Modifier.weight(1f)) {
                 Text(
                     text      = displayName,
@@ -84,9 +91,11 @@ fun CallHistoryRow(
                     overflow  = TextOverflow.Ellipsis
                 )
                 Text(
-                    text  = TimeUtils.formatRelativeDate(targetRecord.timestamp),
+                    text  = subtitleText,
                     style = MaterialTheme.typography.bodySmall,
-                    color = MaterialTheme.colorScheme.onSurfaceVariant
+                    color = MaterialTheme.colorScheme.onSurfaceVariant,
+                    maxLines = 1,
+                    overflow = TextOverflow.Ellipsis
                 )
             }
 

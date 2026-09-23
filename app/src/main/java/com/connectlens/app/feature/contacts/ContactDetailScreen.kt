@@ -33,7 +33,12 @@ fun ContactDetailScreen(
             TopAppBar(
                 title = {
                     val title = if (uiState is ContactDetailUiState.Success) {
-                        (uiState as ContactDetailUiState.Success).stats.displayName
+                        val stats = (uiState as ContactDetailUiState.Success).stats
+                        if (!stats.phoneNumber.isNullOrBlank() && stats.displayName != stats.phoneNumber) {
+                            "${stats.displayName} (${stats.phoneNumber})"
+                        } else {
+                            stats.displayName
+                        }
                     } else {
                         "Contact Details"
                     }
@@ -72,9 +77,9 @@ fun ContactDetailScreen(
                                     text = state.stats.displayName,
                                     style = MaterialTheme.typography.headlineMedium
                                 )
-                                if (state.stats.phoneNumber != null) {
+                                if (!state.stats.phoneNumber.isNullOrBlank()) {
                                     Text(
-                                        text = PhoneNumberUtils.maskNumber(state.stats.phoneNumber),
+                                        text = state.stats.phoneNumber!!,
                                         style = MaterialTheme.typography.bodyLarge,
                                         color = MaterialTheme.colorScheme.onSurfaceVariant
                                     )

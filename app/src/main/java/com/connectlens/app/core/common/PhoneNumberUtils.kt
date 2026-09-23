@@ -9,6 +9,13 @@ package com.connectlens.app.core.common
 object PhoneNumberUtils {
 
     /**
+     * Formats a phone number for UI display.
+     * Returns "Unknown number" if the number is blank.
+     */
+    fun formatNumber(number: String): String =
+        number.ifBlank { "Unknown number" }
+
+    /**
      * Masks a phone number for privacy-aware display.
      *
      * Examples:

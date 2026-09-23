@@ -26,8 +26,10 @@ fun ContactRow(
     modifier: Modifier = Modifier,
     onClick: () -> Unit = {}
 ) {
-    val description = "Contact: ${stats.displayName}, " +
-            "${stats.totalCalls} calls, ${stats.formattedTotalDuration}"
+    val hasPhoneNumber = !stats.phoneNumber.isNullOrBlank() && stats.phoneNumber != stats.displayName
+    val description = "Contact: ${stats.displayName}" +
+            (if (hasPhoneNumber) ", Number: ${stats.phoneNumber}" else "") +
+            ", ${stats.totalCalls} calls, ${stats.formattedTotalDuration}"
 
     Surface(
         modifier = modifier
@@ -46,7 +48,7 @@ fun ContactRow(
             // Avatar
             AvatarView(name = stats.displayName, size = 44.dp)
 
-            // Name + last call
+            // Name + Phone Number + last call
             Column(modifier = Modifier.weight(1f)) {
                 Text(
                     text      = stats.displayName,
@@ -55,11 +57,20 @@ fun ContactRow(
                     maxLines  = 1,
                     overflow  = TextOverflow.Ellipsis
                 )
+                if (hasPhoneNumber) {
+                    Text(
+                        text      = stats.phoneNumber!!,
+                        style     = MaterialTheme.typography.bodySmall,
+                        color     = MaterialTheme.colorScheme.onSurfaceVariant,
+                        maxLines  = 1,
+                        overflow  = TextOverflow.Ellipsis
+                    )
+                }
                 stats.mostRecentCall?.let { instant ->
                     Text(
                         text  = TimeUtils.formatRelativeDate(instant),
-                        style = MaterialTheme.typography.bodySmall,
-                        color = MaterialTheme.colorScheme.onSurfaceVariant
+                        style = MaterialTheme.typography.labelSmall,
+                        color = MaterialTheme.colorScheme.outline
                     )
                 }
             }
