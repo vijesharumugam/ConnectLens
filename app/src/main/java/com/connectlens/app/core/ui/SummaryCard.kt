@@ -1,6 +1,9 @@
 package com.connectlens.app.core.ui
 
+import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -14,10 +17,7 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 
 /**
- * A stat summary card used on the Dashboard and Contact Detail screens.
- *
- * Displays an icon, a large value, a title, and an optional subtitle.
- * Uses Material 3 ElevatedCard with a configurable container colour.
+ * A sleek, modern stat summary card used across Dashboard and Analytics screens.
  */
 @Composable
 fun SummaryCard(
@@ -26,29 +26,53 @@ fun SummaryCard(
     modifier: Modifier = Modifier,
     icon: ImageVector? = null,
     subtitle: String? = null,
-    containerColor: Color = MaterialTheme.colorScheme.primaryContainer,
-    contentColor: Color = MaterialTheme.colorScheme.onPrimaryContainer
+    containerColor: Color = MaterialTheme.colorScheme.surfaceContainerLow,
+    contentColor: Color = MaterialTheme.colorScheme.onSurface
 ) {
-    ElevatedCard(
+    OutlinedCard(
         modifier = modifier
             .semantics { contentDescription = "$title: $value" },
-        colors = CardDefaults.elevatedCardColors(containerColor = containerColor)
+        shape = RoundedCornerShape(16.dp),
+        colors = CardDefaults.outlinedCardColors(containerColor = containerColor),
+        border = BorderStroke(1.dp, contentColor.copy(alpha = 0.12f))
     ) {
         Column(
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(16.dp),
-            verticalArrangement = Arrangement.spacedBy(4.dp)
+            verticalArrangement = Arrangement.spacedBy(6.dp)
         ) {
-            if (icon != null) {
-                Icon(
-                    imageVector = icon,
-                    contentDescription = null,
-                    tint = contentColor.copy(alpha = 0.7f),
-                    modifier = Modifier.size(20.dp)
+            Row(
+                modifier = Modifier.fillMaxWidth(),
+                horizontalArrangement = Arrangement.SpaceBetween,
+                verticalAlignment = Alignment.CenterVertically
+            ) {
+                Text(
+                    text  = title,
+                    style = MaterialTheme.typography.labelMedium,
+                    fontWeight = FontWeight.Medium,
+                    color = contentColor.copy(alpha = 0.75f),
+                    maxLines = 1,
+                    overflow = TextOverflow.Ellipsis
                 )
-                Spacer(modifier = Modifier.height(4.dp))
+                if (icon != null) {
+                    Surface(
+                        shape = CircleShape,
+                        color = contentColor.copy(alpha = 0.12f),
+                        modifier = Modifier.size(32.dp)
+                    ) {
+                        Box(contentAlignment = Alignment.Center) {
+                            Icon(
+                                imageVector = icon,
+                                contentDescription = null,
+                                tint = contentColor,
+                                modifier = Modifier.size(16.dp)
+                            )
+                        }
+                    }
+                }
             }
+
             Text(
                 text       = value,
                 style      = MaterialTheme.typography.headlineSmall,
@@ -57,16 +81,14 @@ fun SummaryCard(
                 maxLines   = 1,
                 overflow   = TextOverflow.Ellipsis
             )
-            Text(
-                text  = title,
-                style = MaterialTheme.typography.labelMedium,
-                color = contentColor.copy(alpha = 0.7f)
-            )
-            if (subtitle != null) {
+
+            if (!subtitle.isNullOrBlank()) {
                 Text(
                     text  = subtitle,
-                    style = MaterialTheme.typography.bodySmall,
-                    color = contentColor.copy(alpha = 0.55f)
+                    style = MaterialTheme.typography.labelSmall,
+                    color = contentColor.copy(alpha = 0.6f),
+                    maxLines = 1,
+                    overflow = TextOverflow.Ellipsis
                 )
             }
         }

@@ -1,9 +1,11 @@
 package com.connectlens.app.feature.analytics
 
+import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.ArrowBack
+import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material.icons.filled.Lightbulb
 import androidx.compose.material.icons.filled.Psychology
 import androidx.compose.material3.*
@@ -32,7 +34,7 @@ fun AnalyticsScreen(
                 title = { Text("Deep Analytics", fontWeight = FontWeight.Bold) },
                 navigationIcon = {
                     IconButton(onClick = onNavigateBack) {
-                        Icon(Icons.Default.ArrowBack, contentDescription = "Back")
+                        Icon(Icons.AutoMirrored.Filled.ArrowBack, contentDescription = "Back")
                     }
                 }
             )
@@ -57,32 +59,34 @@ fun AnalyticsScreen(
                     ) {
                         // Communication Balance Card
                         item {
-                            Card(
-                                colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.primaryContainer),
-                                modifier = Modifier.fillMaxWidth()
+                            OutlinedCard(
+                                modifier = Modifier.fillMaxWidth(),
+                                shape = RoundedCornerShape(20.dp),
+                                colors = CardDefaults.outlinedCardColors(containerColor = MaterialTheme.colorScheme.surfaceContainerLow),
+                                border = BorderStroke(1.dp, MaterialTheme.colorScheme.outlineVariant.copy(alpha = 0.4f))
                             ) {
                                 Row(
-                                    modifier = Modifier.padding(16.dp),
+                                    modifier = Modifier.padding(18.dp),
                                     verticalAlignment = Alignment.CenterVertically
                                 ) {
                                     Icon(
                                         Icons.Default.Psychology,
                                         contentDescription = null,
-                                        tint = MaterialTheme.colorScheme.onPrimaryContainer,
+                                        tint = MaterialTheme.colorScheme.primary,
                                         modifier = Modifier.size(32.dp)
                                     )
-                                    Spacer(modifier = Modifier.width(12.dp))
+                                    Spacer(modifier = Modifier.width(14.dp))
                                     Column {
                                         Text(
                                             "Communication Style",
                                             style = MaterialTheme.typography.labelMedium,
-                                            color = MaterialTheme.colorScheme.onPrimaryContainer.copy(alpha = 0.7f)
+                                            color = MaterialTheme.colorScheme.onSurfaceVariant
                                         )
                                         Text(
                                             state.stats.communicationBalance,
                                             style = MaterialTheme.typography.titleSmall,
                                             fontWeight = FontWeight.Bold,
-                                            color = MaterialTheme.colorScheme.onPrimaryContainer
+                                            color = MaterialTheme.colorScheme.onSurface
                                         )
                                     }
                                 }
@@ -91,8 +95,13 @@ fun AnalyticsScreen(
 
                         // 24-Hour Peak Heatmap Chart
                         item {
-                            Card(modifier = Modifier.fillMaxWidth()) {
-                                Column(modifier = Modifier.padding(16.dp)) {
+                            OutlinedCard(
+                                modifier = Modifier.fillMaxWidth(),
+                                shape = RoundedCornerShape(20.dp),
+                                colors = CardDefaults.outlinedCardColors(containerColor = MaterialTheme.colorScheme.surfaceContainerLowest),
+                                border = BorderStroke(1.dp, MaterialTheme.colorScheme.outlineVariant.copy(alpha = 0.4f))
+                            ) {
+                                Column(modifier = Modifier.padding(18.dp)) {
                                     Text(
                                         "24-Hour Peak Activity Heatmap",
                                         style = MaterialTheme.typography.titleMedium,
@@ -103,7 +112,7 @@ fun AnalyticsScreen(
                                         style = MaterialTheme.typography.labelSmall,
                                         color = MaterialTheme.colorScheme.onSurfaceVariant
                                     )
-                                    Spacer(modifier = Modifier.height(12.dp))
+                                    Spacer(modifier = Modifier.height(14.dp))
                                     HourlyHeatmapChart(hourlyData = state.stats.hourlyDistribution)
                                 }
                             }
@@ -111,14 +120,19 @@ fun AnalyticsScreen(
 
                         // Day of Week Distribution
                         item {
-                            Card(modifier = Modifier.fillMaxWidth()) {
-                                Column(modifier = Modifier.padding(16.dp)) {
+                            OutlinedCard(
+                                modifier = Modifier.fillMaxWidth(),
+                                shape = RoundedCornerShape(20.dp),
+                                colors = CardDefaults.outlinedCardColors(containerColor = MaterialTheme.colorScheme.surfaceContainerLowest),
+                                border = BorderStroke(1.dp, MaterialTheme.colorScheme.outlineVariant.copy(alpha = 0.4f))
+                            ) {
+                                Column(modifier = Modifier.padding(18.dp)) {
                                     Text(
                                         "Weekly Intensity (Mon - Sun)",
                                         style = MaterialTheme.typography.titleMedium,
                                         fontWeight = FontWeight.Bold
                                     )
-                                    Spacer(modifier = Modifier.height(12.dp))
+                                    Spacer(modifier = Modifier.height(14.dp))
                                     DayOfWeekChart(dowData = state.stats.dayOfWeekDistribution)
                                 }
                             }
@@ -126,8 +140,13 @@ fun AnalyticsScreen(
 
                         // Call Duration Buckets
                         item {
-                            Card(modifier = Modifier.fillMaxWidth()) {
-                                Column(modifier = Modifier.padding(16.dp)) {
+                            OutlinedCard(
+                                modifier = Modifier.fillMaxWidth(),
+                                shape = RoundedCornerShape(20.dp),
+                                colors = CardDefaults.outlinedCardColors(containerColor = MaterialTheme.colorScheme.surfaceContainerLowest),
+                                border = BorderStroke(1.dp, MaterialTheme.colorScheme.outlineVariant.copy(alpha = 0.4f))
+                            ) {
+                                Column(modifier = Modifier.padding(18.dp)) {
                                     Text(
                                         "Call Duration Buckets",
                                         style = MaterialTheme.typography.titleMedium,
@@ -138,7 +157,7 @@ fun AnalyticsScreen(
                                         style = MaterialTheme.typography.labelSmall,
                                         color = MaterialTheme.colorScheme.onSurfaceVariant
                                     )
-                                    Spacer(modifier = Modifier.height(12.dp))
+                                    Spacer(modifier = Modifier.height(14.dp))
                                     CallDurationHistogram(buckets = state.stats.durationBuckets)
                                 }
                             }
@@ -146,14 +165,19 @@ fun AnalyticsScreen(
 
                         // Call Volume & Duration Bar Charts
                         item {
-                            Card(modifier = Modifier.fillMaxWidth()) {
-                                Column(modifier = Modifier.padding(16.dp)) {
+                            OutlinedCard(
+                                modifier = Modifier.fillMaxWidth(),
+                                shape = RoundedCornerShape(20.dp),
+                                colors = CardDefaults.outlinedCardColors(containerColor = MaterialTheme.colorScheme.surfaceContainerLowest),
+                                border = BorderStroke(1.dp, MaterialTheme.colorScheme.outlineVariant.copy(alpha = 0.4f))
+                            ) {
+                                Column(modifier = Modifier.padding(18.dp)) {
                                     Text(
                                         "Daily Talk Time (minutes)",
                                         style = MaterialTheme.typography.titleMedium,
                                         fontWeight = FontWeight.Bold
                                     )
-                                    Spacer(modifier = Modifier.height(12.dp))
+                                    Spacer(modifier = Modifier.height(14.dp))
                                     AnalyticsDurationChart(data = state.stats.durationByDay)
                                 }
                             }
@@ -161,14 +185,19 @@ fun AnalyticsScreen(
 
                         // Smart Insights Section
                         item {
-                            Card(modifier = Modifier.fillMaxWidth()) {
-                                Column(modifier = Modifier.padding(16.dp)) {
+                            OutlinedCard(
+                                modifier = Modifier.fillMaxWidth(),
+                                shape = RoundedCornerShape(20.dp),
+                                colors = CardDefaults.outlinedCardColors(containerColor = MaterialTheme.colorScheme.surfaceContainerLowest),
+                                border = BorderStroke(1.dp, MaterialTheme.colorScheme.outlineVariant.copy(alpha = 0.4f))
+                            ) {
+                                Column(modifier = Modifier.padding(18.dp)) {
                                     Row(verticalAlignment = Alignment.CenterVertically) {
                                         Icon(Icons.Default.Lightbulb, contentDescription = null, tint = MaterialTheme.colorScheme.primary)
                                         Spacer(modifier = Modifier.width(8.dp))
                                         Text("Behavioral Insights", style = MaterialTheme.typography.titleMedium, fontWeight = FontWeight.Bold)
                                     }
-                                    Spacer(modifier = Modifier.height(12.dp))
+                                    Spacer(modifier = Modifier.height(14.dp))
                                     state.stats.insights.forEach { insight ->
                                         Row(
                                             modifier = Modifier.padding(bottom = 8.dp),

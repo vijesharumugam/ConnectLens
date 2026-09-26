@@ -3,9 +3,11 @@ package com.connectlens.app.feature.dashboard
 import android.Manifest
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.AccessTime
 import androidx.compose.material.icons.filled.Call
@@ -13,7 +15,6 @@ import androidx.compose.material.icons.filled.Lock
 import androidx.compose.material.icons.filled.People
 import androidx.compose.material.icons.filled.Schedule
 import androidx.compose.material.icons.filled.Settings
-import androidx.compose.material.icons.filled.SwapHoriz
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
@@ -56,7 +57,7 @@ fun DashboardScreen(
                         if (state.hasCallPermission && state.hasContactPermission) {
                             AssistChip(
                                 onClick = { },
-                                label = { Text("Private") },
+                                label = { Text("Private", style = MaterialTheme.typography.labelSmall) },
                                 leadingIcon = {
                                     Icon(
                                         imageVector = Icons.Default.Lock,
@@ -133,15 +134,15 @@ fun DashboardScreen(
                     ) {
                         // KPI Summary Grid
                         item {
-                            Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
-                                Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
+                            Column(verticalArrangement = Arrangement.spacedBy(10.dp)) {
+                                Row(horizontalArrangement = Arrangement.spacedBy(10.dp)) {
                                     SummaryCard(
                                         title = "Total Calls",
                                         value = state.stats.totalCalls.toString(),
                                         subtitle = "${state.stats.incomingCalls} in • ${state.stats.outgoingCalls} out",
                                         icon = Icons.Default.Call,
-                                        containerColor = MaterialTheme.colorScheme.primaryContainer,
-                                        contentColor = MaterialTheme.colorScheme.onPrimaryContainer,
+                                        containerColor = MaterialTheme.colorScheme.surfaceContainerLow,
+                                        contentColor = MaterialTheme.colorScheme.onSurface,
                                         modifier = Modifier.weight(1f)
                                     )
                                     SummaryCard(
@@ -149,19 +150,19 @@ fun DashboardScreen(
                                         value = state.stats.formattedTotalDuration,
                                         subtitle = "Avg ${state.stats.formattedAverageDuration}/call",
                                         icon = Icons.Default.AccessTime,
-                                        containerColor = MaterialTheme.colorScheme.secondaryContainer,
-                                        contentColor = MaterialTheme.colorScheme.onSecondaryContainer,
+                                        containerColor = MaterialTheme.colorScheme.surfaceContainerLow,
+                                        contentColor = MaterialTheme.colorScheme.onSurface,
                                         modifier = Modifier.weight(1f)
                                     )
                                 }
-                                Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
+                                Row(horizontalArrangement = Arrangement.spacedBy(10.dp)) {
                                     SummaryCard(
                                         title = "Peak Activity",
                                         value = state.stats.peakWindow,
                                         subtitle = "Busiest window",
                                         icon = Icons.Default.Schedule,
-                                        containerColor = MaterialTheme.colorScheme.tertiaryContainer,
-                                        contentColor = MaterialTheme.colorScheme.onTertiaryContainer,
+                                        containerColor = MaterialTheme.colorScheme.surfaceContainerLow,
+                                        contentColor = MaterialTheme.colorScheme.onSurface,
                                         modifier = Modifier.weight(1f)
                                     )
                                     SummaryCard(
@@ -169,29 +170,34 @@ fun DashboardScreen(
                                         value = state.stats.uniqueContactsCount.toString(),
                                         subtitle = "Interacted",
                                         icon = Icons.Default.People,
-                                        containerColor = MaterialTheme.colorScheme.surfaceVariant,
-                                        contentColor = MaterialTheme.colorScheme.onSurfaceVariant,
+                                        containerColor = MaterialTheme.colorScheme.surfaceContainerLow,
+                                        contentColor = MaterialTheme.colorScheme.onSurface,
                                         modifier = Modifier.weight(1f)
                                     )
                                 }
                             }
                         }
 
-                        // Call Activity Interactive Canvas Chart
+                        // Call Activity Canvas Chart
                         item {
-                            Card(modifier = Modifier.fillMaxWidth()) {
-                                Column(modifier = Modifier.padding(16.dp)) {
+                            OutlinedCard(
+                                modifier = Modifier.fillMaxWidth(),
+                                shape = RoundedCornerShape(20.dp),
+                                colors = CardDefaults.outlinedCardColors(containerColor = MaterialTheme.colorScheme.surfaceContainerLowest),
+                                border = BorderStroke(1.dp, MaterialTheme.colorScheme.outlineVariant.copy(alpha = 0.4f))
+                            ) {
+                                Column(modifier = Modifier.padding(18.dp)) {
                                     Text(
                                         "Daily Call Activity",
                                         style = MaterialTheme.typography.titleMedium,
                                         fontWeight = FontWeight.Bold
                                     )
                                     Text(
-                                        "Tap any bar to inspect daily call total",
+                                        "Tap any bar to inspect daily call totals",
                                         style = MaterialTheme.typography.labelSmall,
                                         color = MaterialTheme.colorScheme.onSurfaceVariant
                                     )
-                                    Spacer(modifier = Modifier.height(12.dp))
+                                    Spacer(modifier = Modifier.height(14.dp))
                                     AnalyticsBarChart(
                                         data = state.stats.callsByDay,
                                         label = "Calls",
@@ -203,14 +209,19 @@ fun DashboardScreen(
 
                         // Donut Distribution Card
                         item {
-                            Card(modifier = Modifier.fillMaxWidth()) {
-                                Column(modifier = Modifier.padding(16.dp)) {
+                            OutlinedCard(
+                                modifier = Modifier.fillMaxWidth(),
+                                shape = RoundedCornerShape(20.dp),
+                                colors = CardDefaults.outlinedCardColors(containerColor = MaterialTheme.colorScheme.surfaceContainerLowest),
+                                border = BorderStroke(1.dp, MaterialTheme.colorScheme.outlineVariant.copy(alpha = 0.4f))
+                            ) {
+                                Column(modifier = Modifier.padding(18.dp)) {
                                     Text(
                                         "Call Type Breakdown",
                                         style = MaterialTheme.typography.titleMedium,
                                         fontWeight = FontWeight.Bold
                                     )
-                                    Spacer(modifier = Modifier.height(12.dp))
+                                    Spacer(modifier = Modifier.height(14.dp))
                                     CallTypeDonutChart(
                                         incoming = state.stats.incomingCalls,
                                         outgoing = state.stats.outgoingCalls,
@@ -226,7 +237,8 @@ fun DashboardScreen(
                             Text(
                                 "Top Contacts",
                                 style = MaterialTheme.typography.titleMedium,
-                                fontWeight = FontWeight.Bold
+                                fontWeight = FontWeight.Bold,
+                                modifier = Modifier.padding(top = 4.dp)
                             )
                         }
 
